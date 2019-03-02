@@ -1,0 +1,16 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {},
+  "rules": {
+    "class-name": true,
+    "prefer-const": true,
+    "no-var-keyword": true,
+    "trailing-comma": [false],
+    "indent": [true, "spaces"],
+    "comment-format": [true, "check-space"],
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "one-line": [true, "check-open-brace", "check-whitespace"]
+  },
+  "rulesDirectory": []
+}
