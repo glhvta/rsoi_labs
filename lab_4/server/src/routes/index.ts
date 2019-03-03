@@ -1,4 +1,6 @@
 import { Application } from "express";
+import UserController from "../controllers/users";
+import userRouter from "./user";
 
 export const register = ( app: Application ) => {
   app.get( "/guitars", ( req: any, res ) => {
@@ -8,4 +10,6 @@ export const register = ( app: Application ) => {
   app.get( "/", ( req: any, res ) => {
       res.render( "index" );
   } );
+
+  app.use("/api/users", userRouter);
 };

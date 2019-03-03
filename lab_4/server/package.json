@@ -11,7 +11,7 @@
     "build": "npm-run-all clean lint tsc copy-assets",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
-    "start": "node .",
+    "start": "node . ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -34,6 +34,7 @@
     "@types/mongoose": "^5.3.20",
     "@types/morgan": "^1.7.35",
     "@types/node": "^11.10.4",
+    "@types/request": "^2.48.1",
     "@types/shelljs": "^0.8.3",
     "fs-extra": "^7.0.1",
     "nodemon": "^1.18.10",

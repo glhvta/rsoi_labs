@@ -14,6 +14,24 @@
           ]
       }
   },
+  "typeRoots": [
+    "node_modules/@types"
+  ],                                      
+   "types": [
+     "node",
+     "core-js",
+     "ejs",
+     "express",
+     "express-serve-static-core",
+     "request",
+     "serve-static",
+     "mime",
+     "mongoose",
+     "morgan",
+     "node-fetch",
+     "serve-favicon",
+     "winston"
+   ],  
   "include": [
       "src/**/*"
   ]
