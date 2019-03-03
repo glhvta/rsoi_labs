@@ -6,6 +6,7 @@
     "class-name": true,
     "prefer-const": true,
     "no-var-keyword": true,
+    "object-literal-sort-keys": false,
     "trailing-comma": [false],
     "indent": [true, "spaces"],
     "comment-format": [true, "check-space"],
