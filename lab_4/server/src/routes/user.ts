@@ -15,20 +15,12 @@ router.post("/", (req: any, res: any) =>
   UserController.createUser(req, res)
 );
 
+router.put("/:id", (req: any, res: any) =>
+  UserController.updateUser(req, res)
+);
+
 router.delete("/:id", (req: any, res: any) =>
   UserController.deleteUserById(req, res)
 );
-
-// router.delete("/:id", (req: Request, res: Response) =>
-//   UserController.deleteUser(req, res)
-// );
-
-// const userRoutes = (app: Application, userController = UserController) => {
-//   app.route(userRoute)
-//     .get( async (req: express.Request,
-//     res: express.Response,
-//     next: express.NextFunction ) =>
-//     await userController.getUsers(req, res, next) )
-// }
 
 export default router;

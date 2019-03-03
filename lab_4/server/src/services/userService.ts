@@ -38,9 +38,9 @@ class UserService implements IUserService {
     return user;
   }
 
-  // public updateUser(user: User): Promise<User | null> {
-  //   return UserModel.findByIdAndUpdate(, user);
-  // }
+  public updateUser(id: string, user: User): Promise<User | null> {
+    return UserModel.findOneAndUpdate(id, user).exec();
+  }
 
   public async deleteUser( id: string ) {
     await UserModel.findByIdAndDelete(id);

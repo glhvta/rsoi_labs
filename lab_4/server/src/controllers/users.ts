@@ -50,6 +50,22 @@ class UserController {
     }
   }
 
+  public async updateUser(req: Request, res: Response) {
+    const id = req.params.id;
+    const userData = req.body;
+
+    try {
+      const user = await this.userService.updateUser(id, userData);
+
+      res.status(httpstatus.OK).json(user);
+    } catch (e) {
+      // tslint:disable-next-line:no-console
+      console.log(e);
+
+      res.status(httpstatus.BAD_REQUEST);
+    }
+  }
+
   public async deleteUserById(req: Request, res: Response) {
     const id = req.params.id;
 
