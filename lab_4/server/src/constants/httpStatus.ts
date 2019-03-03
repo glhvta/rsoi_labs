@@ -1,6 +1,7 @@
 export default {
   200: "OK",
   201: "Created",
+  202: "Accepted",
   400: "Bad Request",
   401: "Unauthorized",
   404: "Not Found",
@@ -9,6 +10,7 @@ export default {
   500: "Internal Server Error",
   OK: 200,
   CREATED: 201,
+  ACCEPTED: 202,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   NOT_FOUND: 404,

@@ -2,10 +2,10 @@ import User from "../models/user";
 
 interface IUserService {
   getUsers(): Promise<User[]>;
-  getUserById(id: number): Promise<User | null>;
+  getUserById(id: string): Promise<User | null>;
   createUser(user: User): Promise<User>;
   // updateUser(user: User): Promise<User>;
-  deleteUser(id: number): Promise<User | null>;
+  deleteUser(id: string): void;
 }
 
 export default IUserService;

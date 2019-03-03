@@ -7,7 +7,7 @@ class UserService implements IUserService {
     return UserModel.find().exec();
   }
 
-  public getUserById(id: number): Promise<User> {
+  public getUserById(id: string): Promise<User> {
     return UserModel.findById(id).exec();
   }
 
@@ -42,8 +42,8 @@ class UserService implements IUserService {
   //   return UserModel.findByIdAndUpdate(, user);
   // }
 
-  public deleteUser( id: number ): Promise<User | null> {
-    return UserModel.findByIdAndRemove(id).exec();
+  public async deleteUser( id: string ) {
+    await UserModel.findByIdAndDelete(id);
   }
 
 }
