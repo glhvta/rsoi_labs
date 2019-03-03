@@ -26,7 +26,7 @@ interface IUser {
   name: string;
   birthday: Date;
   sex: GENDERS;
-  passportSeries: number;
+  passportSeries: string;
   passportIssued: string;
   passportIssueDate: Date;
   patronymic: string;

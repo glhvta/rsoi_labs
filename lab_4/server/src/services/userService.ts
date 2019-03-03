@@ -27,7 +27,7 @@ class UserService implements IUserService {
       actualLivingPlace: user.actualLivingPlace,
       homePhone: user.homePhone,
       mobilePhone: user.mobilePhone,
-      registrationСity: user.birthPlace,
+      registrationСity: user.registrationСity,
       citizenship: user.citizenship,
       maritalStatus: user.maritalStatus,
       disabilities: user.disabilities,

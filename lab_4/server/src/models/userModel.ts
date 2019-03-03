@@ -14,7 +14,7 @@ const UserSchema = new Schema({
   name: { type: String, required: true },
   birthday: { type: Date, required: true },
   sex: { type: String,  enum: enumToArray(GENDERS), required: true },
-  passportSeries: { type: Number, required: true },
+  passportSeries: { type: String, required: true },
   passportIssued: { type: String, required: true },
   passportIssueDate: { type: Date, required: true },
   patronymic: { type: String, required: true },
