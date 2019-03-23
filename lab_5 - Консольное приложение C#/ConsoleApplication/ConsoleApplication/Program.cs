@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ConsoleApplication {
     class Program {
         static string pathToFile = "D:\\Университет\\3 курс\\6 семестр\\РСОИ\\rsoi_labs\\lab_5 - Консольное приложение C#\\iceCreamsData.txt";
-        static int iceCreamsNumber = 0;
+        static int iceCreamsNumber = 1;
 
         static void Main(string[] args) {
             while (true) {
@@ -20,7 +20,7 @@ namespace ConsoleApplication {
                     case 1: addIceCream(); break;
                     case 2: deleteIceCream(choice); break;
                     case 3: sortIceCream(); break;
-                    case 4: findIceCream(choice); break;
+                    case 4: findIceCream(); break;
                     case 5: printAllIceCream(); break;
                     default: return;
                 }
@@ -48,7 +48,7 @@ namespace ConsoleApplication {
                 double cost = Convert.ToDouble(Console.ReadLine());
 
                 sw = new StreamWriter(pathToFile, true, System.Text.Encoding.Default);
-                sw.WriteLine(++iceCreamsNumber + ": " + name + "  " + cost);
+                sw.WriteLine(iceCreamsNumber++ + ": " + name + "  " + cost);
                 Console.WriteLine("Данные были добавлены успешно!");
             }
             catch {
@@ -77,8 +77,27 @@ namespace ConsoleApplication {
             Console.WriteLine("Delete ice cream");
         }
 
-        static void findIceCream(int number) {
-            Console.WriteLine("Find ice cream");
+        static void findIceCream() {
+            StreamReader sr = null;
+
+            Console.WriteLine("Введите мороженое для поиска:  ");
+            string iceCream = Console.ReadLine();
+
+            try {
+                sr = new StreamReader(pathToFile, System.Text.Encoding.Default);
+                string line;
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line.Contains(iceCream)) {
+                        Console.WriteLine(line);
+                    }
+                }
+            } catch {
+                Console.WriteLine("Ошибка при чтении");
+            } finally {
+                sr.Close();
+            }
         }
 
         static void sortIceCream() {
