@@ -18,7 +18,7 @@ namespace ConsoleApplication {
                 switch (choice)
                 {
                     case 1: addIceCream(); break;
-                    case 2: deleteIceCream(choice); break;
+                    case 2: deleteIceCream(); break;
                     case 3: sortIceCream(); break;
                     case 4: findIceCream(); break;
                     case 5: printAllIceCream(); break;
@@ -59,6 +59,25 @@ namespace ConsoleApplication {
             }
         }
 
+        static void rewriteIceCreamData(string data) {
+            StreamWriter sw = null;
+
+            try
+            {
+                sw = new StreamWriter(pathToFile, false, System.Text.Encoding.Default);
+                sw.WriteLine(data);
+                Console.WriteLine("Данные были изменены успешно!");
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка при перезаписи файла:(");
+            }
+            finally
+            {
+                sw.Close();
+            }
+        }
+
         static string getIceCreamFromFile() {
             StreamReader sr = null;
             string data = "";
@@ -88,8 +107,15 @@ namespace ConsoleApplication {
             Console.WriteLine("Мороженое: \n" + getIceCreamFromFile());
         }
 
-        static void deleteIceCream(int number) {
-            Console.WriteLine("Delete ice cream");
+        static void deleteIceCream() {
+            Console.WriteLine("Введите номер мороженого для поиска:  ");
+            char number = Convert.ToChar(Console.ReadLine());
+
+            IEnumerable<string> newIceCreamList = getIceCreamList()
+                .Where(line => line != "")
+                .Where(line => line[0] != number);
+
+            rewriteIceCreamData(String.Join("\n", newIceCreamList));
         }
 
         static void findIceCream() {
