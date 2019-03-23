@@ -59,11 +59,14 @@ namespace ConsoleApplication {
             }
         }
 
-        static void printAllIceCream() {
+        static string getIceCreamFromFile() {
             StreamReader sr = null;
+            string data = "";
+
             try {
                 sr = new StreamReader(pathToFile, System.Text.Encoding.Default);
-                Console.WriteLine("Мороженое: \n" + sr.ReadToEnd());
+                data = sr.ReadToEnd();
+
             }
             catch {
                 Console.WriteLine("Ошибка при чтении");
@@ -71,6 +74,18 @@ namespace ConsoleApplication {
             finally {
                 sr.Close();
             }
+
+            return data;
+        }
+
+        static string[] getIceCreamList() {
+            string iceCreamString = getIceCreamFromFile();
+
+            return iceCreamString.Split(new[] { '\r', '\n' });
+        }
+
+        static void printAllIceCream() {
+            Console.WriteLine("Мороженое: \n" + getIceCreamFromFile());
         }
 
         static void deleteIceCream(int number) {
@@ -78,25 +93,18 @@ namespace ConsoleApplication {
         }
 
         static void findIceCream() {
-            StreamReader sr = null;
-
             Console.WriteLine("Введите мороженое для поиска:  ");
             string iceCream = Console.ReadLine();
 
-            try {
-                sr = new StreamReader(pathToFile, System.Text.Encoding.Default);
-                string line;
+            string[] iceCreamList = getIceCreamList();
 
-                while ((line = sr.ReadLine()) != null)
+            foreach (string line in iceCreamList)
+            {
+                if (line.Contains(iceCream))
                 {
-                    if (line.Contains(iceCream)) {
-                        Console.WriteLine(line);
-                    }
+                    Console.WriteLine(line);
                 }
-            } catch {
-                Console.WriteLine("Ошибка при чтении");
-            } finally {
-                sr.Close();
+
             }
         }
 
