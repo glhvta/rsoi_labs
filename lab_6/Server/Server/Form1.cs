@@ -18,6 +18,7 @@ namespace Server
     {
         private int port = 5555;
         static string filePath = "D:\\Университет\\3 курс\\6 семестр\\РСОИ\\rsoi_labs\\lab_6\\Server\\data.txt";
+        static int notesCount = 0;
 
         TcpListener listener = null;
         Socket socket = null;
@@ -39,7 +40,7 @@ namespace Server
                 while (true)
                 {
                     TcpClient client = listener.AcceptTcpClient();
-                    ClientObject clientObject = new ClientObject(client);
+                    ClientObject clientObject = new ClientObject(client, filePath);
 
                     Thread clientThread = new Thread(new ThreadStart(clientObject.Process));
                     clientThread.Start();
@@ -61,9 +62,12 @@ namespace Server
     public class ClientObject
     {
         public TcpClient client;
-        public ClientObject(TcpClient tcpClient)
+        private string filePath = "";
+
+        public ClientObject(TcpClient tcpClient, string filePath)
         {
-            client = tcpClient;
+            this.client = tcpClient;
+            this.filePath = filePath;
         }
 
         public void Process()
@@ -90,15 +94,15 @@ namespace Server
                     string message = builder.ToString();
 
                     string cmd = message.Substring(0, message.IndexOf("|", 0));
-                    string responseData = message;
+                    string responseData = cmd;
 
-                    /**switch (cmd)
+                    switch (cmd)
                     {
-                        case "1": responseData = getDataFromFile(); break;
-                        default: return;
-                    }*/
+                        case "view": responseData = getDataFromFile(); break;
+                        default: break;
+                    }
 
-                    response = Encoding.Unicode.GetBytes(responseData.Trim().ToUpper());
+                    response = Encoding.Unicode.GetBytes(responseData);
                     stream.Write(response, 0, response.Length);
                 }
             }
@@ -114,57 +118,15 @@ namespace Server
                     client.Close();
             }
         }
-    }
 
-}
+        /**
+         *  File processing logic
+         */
 
-    /**public class ThreadClass
-    {
-        Form1 form = null;
-        public TcpClient client;
-
-        NetworkStream ns = null;
-        ASCIIEncoding ae = null;
-
-        string filePath = "";
- 
-
-        public Thread Start(NetworkStream ns, string filePath, Form1 form)
-        {
-            this.ns = ns;
-            this.filePath = filePath;
-            ae = new ASCIIEncoding();
-
-            this.form = form;
-
-            Thread thread = new Thread(new ThreadStart(ThreadOperations));
-            thread.Start();
-
-            return thread;
-        }
-
-        public void ThreadOperations() {
-            byte[] received = new byte[256];
-            byte[] sent = new byte[256]; 
-
-            ns.Read(received, 0, received.Length);
-            String s1 = ae.GetString(received);
-
-            String cmd = s1.Substring(0, s1.IndexOf("|", 0));
-            String data = "";
-
-            switch (cmd)
-            {
-                case "1": data = getDataFromFile(); break;
-                default: return;
-            }
-
-            sent = ae.GetBytes(data);
-
-            ns.Write(sent, 0, sent.Length);
-            ns.Close();
-        }
-
+        /**
+         *  Read all file data
+         *  @return string data
+         */
         private string getDataFromFile()
         {
             StreamReader sr = null;
@@ -189,4 +151,5 @@ namespace Server
         }
 
     }
-}*/
+
+}

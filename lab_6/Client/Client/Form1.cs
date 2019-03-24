@@ -43,7 +43,7 @@ namespace Client
                 tcp_client = new TcpClient("localhost", 5555);
 
                 stream = tcp_client.GetStream();
-                String res = "1|" + this.command;
+                String res = getRequestData();
 
                 byte[] sentData = Encoding.Unicode.GetBytes(res);
                 byte[] recievedData = new byte[256];
@@ -60,6 +60,21 @@ namespace Client
             finally {
                 tcp_client.Close();
             }
+        }
+
+        private string getRequestData() {
+            string data = "";
+
+            switch (this.command) {
+                case "view": data = ""; break;
+                case "add": data = textBox3.Text + "|" + textBox4.Text; break;
+                case "delete": data = textBox2.Text; break;
+                case "change": data = textBox2.Text + "|" + textBox4.Text; break;
+                case "find": data = textBox2.Text; break;
+                default: data = ""; break;
+            }
+
+            return this.command + "|" + data;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
