@@ -18,7 +18,6 @@ namespace Server
     {
         private int port = 5555;
         static string filePath = "D:\\Университет\\3 курс\\6 семестр\\РСОИ\\rsoi_labs\\lab_6\\Server\\data.txt";
-        static int notesCount = 0;
 
         TcpListener listener = null;
         Socket socket = null;
@@ -99,6 +98,11 @@ namespace Server
                     switch (cmd)
                     {
                         case "view": responseData = getDataFromFile(); break;
+                        case "add": {
+                            appendDataToFile(message); 
+                            responseData = "Данные были добавлены!\r\n" + getDataFromFile(); 
+                            break;
+                        }
                         default: break;
                     }
 
@@ -150,6 +154,45 @@ namespace Server
             return data;
         }
 
+        /**
+         *  Add new item to the file
+         *  
+         *  @param string - data
+         *  If split by '|' name = data[1], cost = data[2]
+         *  
+         *  @return string data
+         */
+        private void appendDataToFile(string data)
+        {
+            string[] dataArr = data.Split(new[] { '|' });
+            StreamWriter sw = null;
+
+            try
+            {
+                string name = dataArr[1];
+                string cost = dataArr[2];
+
+                sw = new StreamWriter(filePath, true, System.Text.Encoding.Default);
+                sw.WriteLine(Config.numberCount++ + ": " + name + "  $" + cost);
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка при записи в файл:(");
+            }
+            finally
+            {
+                sw.Close();
+            }
+        }
+
+    }
+
+    /**
+     *As a way to control numbers of icecreams 
+     */
+    public class Config
+    {
+        public static int numberCount = 1;
     }
 
 }

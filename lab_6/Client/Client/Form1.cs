@@ -46,7 +46,7 @@ namespace Client
                 String res = getRequestData();
 
                 byte[] sentData = Encoding.Unicode.GetBytes(res);
-                byte[] recievedData = new byte[256];
+                byte[] recievedData = new byte[1024];
 
                 stream.Write(sentData, 0, sentData.Length);
                 stream.Read(recievedData, 0, recievedData.Length);
