@@ -105,10 +105,10 @@
             this.radioButton3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.radioButton3.Location = new System.Drawing.Point(66, 95);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(140, 22);
+            this.radioButton3.Size = new System.Drawing.Size(216, 22);
             this.radioButton3.TabIndex = 4;
             this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Удалить запись";
+            this.radioButton3.Text = "Удалить запись по номеру";
             this.radioButton3.UseVisualStyleBackColor = true;
             this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
@@ -119,10 +119,10 @@
             this.radioButton4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.radioButton4.Location = new System.Drawing.Point(66, 131);
             this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(187, 22);
+            this.radioButton4.Size = new System.Drawing.Size(294, 22);
             this.radioButton4.TabIndex = 5;
             this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Редактировать запись";
+            this.radioButton4.Text = "Редактировать стоимость по номеру ";
             this.radioButton4.UseVisualStyleBackColor = true;
             this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
             // 
@@ -133,10 +133,10 @@
             this.radioButton5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.radioButton5.Location = new System.Drawing.Point(66, 168);
             this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(123, 22);
+            this.radioButton5.Size = new System.Drawing.Size(215, 22);
             this.radioButton5.TabIndex = 6;
             this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "Найти запись";
+            this.radioButton5.Text = "Найти запись по названию";
             this.radioButton5.UseVisualStyleBackColor = true;
             this.radioButton5.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
             // 
@@ -152,7 +152,7 @@
             this.panel1.Location = new System.Drawing.Point(403, 12);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.panel1.Size = new System.Drawing.Size(342, 206);
+            this.panel1.Size = new System.Drawing.Size(376, 205);
             this.panel1.TabIndex = 7;
             // 
             // label1

@@ -20,9 +20,6 @@ namespace Server
         static string filePath = "D:\\Университет\\3 курс\\6 семестр\\РСОИ\\rsoi_labs\\lab_6\\Server\\data.txt";
 
         TcpListener listener = null;
-        Socket socket = null;
-        NetworkStream ns = null;
-        ASCIIEncoding ae = null;
 
         public Form1()
         {
@@ -31,6 +28,8 @@ namespace Server
 
         private void button1_Click(object sender, EventArgs e)
         {
+            button1.BackColor = Color.Green;
+
             try
             {
                 listener = new TcpListener(IPAddress.Any, port);
@@ -104,6 +103,8 @@ namespace Server
                             break;
                         }
                         case "find": responseData = "Результаты поиска!\r\n" + findData(message); break;
+                        case "delete": responseData = "Запись была удалена !\r\n" + deleteFromFile(message); break;
+                        case "change": changeFile(message); responseData = "Запись была изменена!\r\n"; break;
                         default: break;
                     }
 
@@ -156,6 +157,29 @@ namespace Server
         }
 
         /**
+         *  Rewrite the file
+         *  @return void
+         */
+        private void rewriteFile(string data)
+        {
+            StreamWriter sw = null;
+
+            try
+            {
+                sw = new StreamWriter(this.filePath, false, System.Text.Encoding.Default);
+                sw.WriteLine(data);
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка при перезаписи файла:(");
+            }
+            finally
+            {
+                sw.Close();
+            }
+        }
+
+        /**
          *  Add new item to the file
          *  
          *  @param { string }
@@ -186,35 +210,99 @@ namespace Server
             }
         }
 
-        private IEnumerable<string> getIceCreamList()
-        {
-            string iceCreamString = getDataFromFile();
 
-            return iceCreamString.Split(new[] { '\r', '\n' }).Where(line => line != ""); ;
+        /**
+         *  Read data from file and returns data as List
+         *  @return string[]
+         */
+        private IEnumerable<string> getDataListFromFile()
+        {
+            string notesString = getDataFromFile();
+
+            return notesString.Split(new[] { '\r', '\n' }).Where(line => line != ""); ;
         }
 
         /**
          *  Finds note by the name 
          *  
          *  @param { string } if split by '|' name = data[1]
-         *  @return { string } data
+         *  @return string
          */
         private string findData(string data)
         {
             string name = data.Split(new[] { '|' })[1];
             string res = "";
 
-            IEnumerable<string> iceCreamList = getIceCreamList();
+            IEnumerable<string> notesList = getDataListFromFile();
 
-            foreach (string line in iceCreamList)
+            foreach (string line in notesList)
             {
                 if (line.Contains(name))
                 {
-                    res += line;
+                    res += line + "\r\n";
                 }
 
             }
             return res;
+        }
+
+        /**
+         *  Delete note by the number 
+         *  
+         *  @param { string } if split by '|' number = data[1]
+         *  @return string
+         */
+        private string deleteFromFile(string data)
+        {
+            char number = Convert.ToChar(data.Split(new[] { '|' })[1]);
+
+            IEnumerable<string> newList = getDataListFromFile()
+                .Where(line => line[0] != number);
+
+            string newData = String.Join("\r\n", newList);
+
+            rewriteFile(newData);
+            return newData;
+        }
+
+        /**
+         *  Gets cost from strign 
+         *  
+         *  @param { string }
+         *  @return int 
+         */
+        private int getCost(string data)
+        {
+            int i = data.IndexOf('$');
+            string cost = data.Substring(i + 1);
+            return Convert.ToInt32(cost);
+        }
+
+        /**
+         *  Change note's cost
+         *  
+         *  @param { string }
+         *  If split by '|' number = data[1], cost = data[2]
+         *  @return string
+         */
+        private void changeFile(string data)
+        {
+            string[] dataArr = data.Split(new[] { '|' });
+            char number = Convert.ToChar(dataArr[1]);
+            string newCost = dataArr[2];
+
+            string[] iceCreams =  getDataListFromFile().ToArray<string>();
+
+            for (int i = 0; i < iceCreams.Length; i++)
+            {
+                if (iceCreams[i][0] == number)
+                {
+                    string prevCost = Convert.ToString(getCost(iceCreams[i]));
+                    iceCreams[i] = iceCreams[i].Replace(prevCost, newCost);
+                }
+            }
+
+            rewriteFile(String.Join("\r\n", iceCreams));
         }
 
     }
