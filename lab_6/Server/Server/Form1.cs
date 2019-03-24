@@ -103,6 +103,7 @@ namespace Server
                             responseData = "Данные были добавлены!\r\n" + getDataFromFile(); 
                             break;
                         }
+                        case "find": responseData = "Результаты поиска!\r\n" + findData(message); break;
                         default: break;
                     }
 
@@ -157,10 +158,10 @@ namespace Server
         /**
          *  Add new item to the file
          *  
-         *  @param string - data
+         *  @param { string }
          *  If split by '|' name = data[1], cost = data[2]
          *  
-         *  @return string data
+         *  @return { string } data
          */
         private void appendDataToFile(string data)
         {
@@ -183,6 +184,37 @@ namespace Server
             {
                 sw.Close();
             }
+        }
+
+        private IEnumerable<string> getIceCreamList()
+        {
+            string iceCreamString = getDataFromFile();
+
+            return iceCreamString.Split(new[] { '\r', '\n' }).Where(line => line != ""); ;
+        }
+
+        /**
+         *  Finds note by the name 
+         *  
+         *  @param { string } if split by '|' name = data[1]
+         *  @return { string } data
+         */
+        private string findData(string data)
+        {
+            string name = data.Split(new[] { '|' })[1];
+            string res = "";
+
+            IEnumerable<string> iceCreamList = getIceCreamList();
+
+            foreach (string line in iceCreamList)
+            {
+                if (line.Contains(name))
+                {
+                    res += line;
+                }
+
+            }
+            return res;
         }
 
     }

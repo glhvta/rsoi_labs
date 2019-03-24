@@ -70,7 +70,7 @@ namespace Client
                 case "add": data = textBox3.Text + "|" + textBox4.Text; break;
                 case "delete": data = textBox2.Text; break;
                 case "change": data = textBox2.Text + "|" + textBox4.Text; break;
-                case "find": data = textBox2.Text; break;
+                case "find": data = textBox3.Text; break;
                 default: data = ""; break;
             }
 

@@ -42,7 +42,6 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -180,9 +179,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(424, 284);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(205, 20);
+            this.label3.Size = new System.Drawing.Size(198, 20);
             this.label3.TabIndex = 11;
-            this.label3.Text = "Мороженое для поиска";
+            this.label3.Text = "Название мороженого";
             // 
             // textBox3
             // 
@@ -198,38 +197,26 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(424, 320);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(157, 20);
+            this.label2.Size = new System.Drawing.Size(209, 20);
             this.label2.TabIndex = 13;
-            this.label2.Text = "Новая стоимость";
+            this.label2.Text = "Стоимость мороженого";
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(587, 320);
+            this.textBox4.Location = new System.Drawing.Point(635, 320);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(298, 22);
+            this.textBox4.Size = new System.Drawing.Size(250, 22);
             this.textBox4.TabIndex = 14;
             this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.LightGreen;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button2.Location = new System.Drawing.Point(403, 421);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(178, 47);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Послать на сервер";
-            this.button2.UseVisualStyleBackColor = false;
             // 
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.LightGreen;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button3.Location = new System.Drawing.Point(587, 421);
+            this.button3.Location = new System.Drawing.Point(403, 421);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(298, 47);
+            this.button3.Size = new System.Drawing.Size(482, 47);
             this.button3.TabIndex = 16;
             this.button3.Text = "ВЫПОЛНИТЬ";
             this.button3.UseVisualStyleBackColor = false;
@@ -242,7 +229,6 @@
             this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(897, 580);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox3);
@@ -280,7 +266,6 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
     }
 }
