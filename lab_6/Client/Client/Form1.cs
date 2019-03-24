@@ -16,6 +16,7 @@ namespace Client
 {
     public partial class Form1 : Form
     {
+        string command = "1";
 
         public Form1()
         {
@@ -29,9 +30,7 @@ namespace Client
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            
-            String res = "1|";
- 
+            this.command = "view";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -44,7 +43,7 @@ namespace Client
                 tcp_client = new TcpClient("localhost", 5555);
 
                 stream = tcp_client.GetStream();
-                String res = "1|blablabla";
+                String res = "1|" + this.command;
 
                 byte[] sentData = Encoding.Unicode.GetBytes(res);
                 byte[] recievedData = new byte[256];
@@ -61,6 +60,26 @@ namespace Client
             finally {
                 tcp_client.Close();
             }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            this.command = "add";
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            this.command = "delete";
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            this.command = "change";
+        }
+
+        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            this.command = "find";
         }
     }
 }

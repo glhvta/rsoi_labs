@@ -55,6 +55,7 @@ namespace Server
                     listener.Stop();
             }
         }
+
     }
 
     public class ClientObject
@@ -71,8 +72,9 @@ namespace Server
             try
             {
                 stream = client.GetStream();
+                byte[] data = new byte[64];
+                byte[] response = new byte[1024];
 
-                byte[] data = new byte[64]; 
                 while (true)
                 {
                     StringBuilder builder = new StringBuilder();
@@ -87,12 +89,17 @@ namespace Server
 
                     string message = builder.ToString();
 
-                    Console.WriteLine(message);
+                    string cmd = message.Substring(0, message.IndexOf("|", 0));
+                    string responseData = message;
 
-                    message = message.Substring(message.IndexOf('|') + 1).Trim().ToUpper();
-                    data = Encoding.Unicode.GetBytes(message);
+                    /**switch (cmd)
+                    {
+                        case "1": responseData = getDataFromFile(); break;
+                        default: return;
+                    }*/
 
-                    stream.Write(data, 0, data.Length);
+                    response = Encoding.Unicode.GetBytes(responseData.Trim().ToUpper());
+                    stream.Write(response, 0, response.Length);
                 }
             }
             catch (Exception ex)
@@ -110,3 +117,76 @@ namespace Server
     }
 
 }
+
+    /**public class ThreadClass
+    {
+        Form1 form = null;
+        public TcpClient client;
+
+        NetworkStream ns = null;
+        ASCIIEncoding ae = null;
+
+        string filePath = "";
+ 
+
+        public Thread Start(NetworkStream ns, string filePath, Form1 form)
+        {
+            this.ns = ns;
+            this.filePath = filePath;
+            ae = new ASCIIEncoding();
+
+            this.form = form;
+
+            Thread thread = new Thread(new ThreadStart(ThreadOperations));
+            thread.Start();
+
+            return thread;
+        }
+
+        public void ThreadOperations() {
+            byte[] received = new byte[256];
+            byte[] sent = new byte[256]; 
+
+            ns.Read(received, 0, received.Length);
+            String s1 = ae.GetString(received);
+
+            String cmd = s1.Substring(0, s1.IndexOf("|", 0));
+            String data = "";
+
+            switch (cmd)
+            {
+                case "1": data = getDataFromFile(); break;
+                default: return;
+            }
+
+            sent = ae.GetBytes(data);
+
+            ns.Write(sent, 0, sent.Length);
+            ns.Close();
+        }
+
+        private string getDataFromFile()
+        {
+            StreamReader sr = null;
+            string data = "";
+
+            try
+            {
+                sr = new StreamReader(this.filePath, System.Text.Encoding.Default);
+                data = sr.ReadToEnd();
+
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка при чтении");
+            }
+            finally
+            {
+                sr.Close();
+            }
+
+            return data;
+        }
+
+    }
+}*/
