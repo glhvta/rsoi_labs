@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Net; 
 using System.Net.Sockets; 
 using System.IO; 
-using System.Threading; 
+using System.Threading;
 
 namespace Server
 {
@@ -31,83 +31,82 @@ namespace Server
 
         private void button1_Click(object sender, EventArgs e)
         {
-            listener = new TcpListener(IPAddress.Any, port);
-            listener.Start();
-
-            socket = listener.AcceptSocket();
-
-            if (socket.Connected) {
-                ns = new NetworkStream(socket);
-                ae = new ASCIIEncoding();
-
-                ThreadClass threadClass = new ThreadClass();
-                Thread thread = threadClass.Start(ns, filePath, this);
-            }
-        }
-    }
-
-    public class ThreadClass {
-        Form1 form = null;
-        NetworkStream ns = null;
-        ASCIIEncoding ae = null;
-
-        string filePath = "";
-
-        public Thread Start(NetworkStream ns, string filePath, Form1 form)
-        {
-            this.ns = ns;
-            ae = new ASCIIEncoding();
-
-            this.form = form;
-
-            Thread thread = new Thread(new ThreadStart(ThreadOperations));
-            thread.Start();
-
-            return thread;
-        }
-
-        public void ThreadOperations() {
-            byte[] received = new byte[256];
-            byte[] sent = new byte[256]; 
-
-            ns.Read(received, 0, received.Length);
-            String s1 = ae.GetString(received);
-
-            String cmd = s1.Substring(0, s1.IndexOf("|", 0));
-            String data = "";
-
-            switch (cmd)
-            {
-                case "1": data = getDataFromFile(); break;
-                default: return;
-            }
-
-            sent = ae.GetBytes(data);
-            ns.Write(sent, 0, sent.Length); 
-        }
-
-        private string getDataFromFile()
-        {
-            StreamReader sr = null;
-            string data = "";
-
             try
             {
-                sr = new StreamReader(filePath, System.Text.Encoding.Default);
-                data = sr.ReadToEnd();
+                listener = new TcpListener(IPAddress.Any, port);
+                listener.Start();
 
+                while (true)
+                {
+                    TcpClient client = listener.AcceptTcpClient();
+                    ClientObject clientObject = new ClientObject(client);
+
+                    Thread clientThread = new Thread(new ThreadStart(clientObject.Process));
+                    clientThread.Start();
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("Ошибка при чтении");
+                Console.WriteLine(ex.Message);
             }
             finally
             {
-                sr.Close();
+                if (listener != null)
+                    listener.Stop();
             }
+        }
+    }
 
-            return data;
+    public class ClientObject
+    {
+        public TcpClient client;
+        public ClientObject(TcpClient tcpClient)
+        {
+            client = tcpClient;
         }
 
+        public void Process()
+        {
+            NetworkStream stream = null;
+            try
+            {
+                stream = client.GetStream();
+
+                byte[] data = new byte[64]; 
+                while (true)
+                {
+                    StringBuilder builder = new StringBuilder();
+                    int bytes = 0;
+
+                    do
+                    {
+                        bytes = stream.Read(data, 0, data.Length);
+                        builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+                    }
+                    while (stream.DataAvailable);
+
+                    string message = builder.ToString();
+
+                    Console.WriteLine(message);
+
+                    message = message.Substring(message.IndexOf('|') + 1).Trim().ToUpper();
+                    data = Encoding.Unicode.GetBytes(message);
+
+                    stream.Write(data, 0, data.Length);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+                if (client != null)
+                    client.Close();
+            }
+        }
     }
+
 }

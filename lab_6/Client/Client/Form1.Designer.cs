@@ -109,7 +109,6 @@
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "Удалить запись";
             this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
             // radioButton4
             // 
@@ -123,7 +122,6 @@
             this.radioButton4.TabStop = true;
             this.radioButton4.Text = "Редактировать запись";
             this.radioButton4.UseVisualStyleBackColor = true;
-            this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
             // 
             // radioButton5
             // 
@@ -162,7 +160,6 @@
             this.label1.Size = new System.Drawing.Size(127, 20);
             this.label1.TabIndex = 8;
             this.label1.Text = "Номер записи";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBox2
             // 
@@ -181,7 +178,6 @@
             this.label3.Size = new System.Drawing.Size(205, 20);
             this.label3.TabIndex = 11;
             this.label3.Text = "Мороженое для поиска";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // textBox3
             // 
